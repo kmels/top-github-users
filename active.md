@@ -1,9 +1,8 @@
-# Most active GitHub users ([git.io/top](http://git.io/top))
+# Usuarios más activos con ubicación en Guatemala
 
-The count of contributions (summary of Pull Requests, opened issues and commits) to public repos at GitHub.com from **Thu, 18 Jul 2013 22:24:07 GMT** till **Fri, 18 Jul 2014 22:24:07 GMT**.
+  El número de contribuciones (pull requests, issues abiertos y commits) a repositorios públicos en Github.com desde el **Thu, 18 Jul 2013 22:31:34 GMT** al **Fri, 18 Jul 2014 22:31:34 GMT**.
 
-Only first 1000 GitHub users according to the count of followers are taken.
-This is because of limitations of GitHub search. Sorting algo in pseudocode:
+Ordenamient en pseudo-código:
 
 ```coffeescript
 githubUsers
@@ -12,7 +11,7 @@ githubUsers
   .slice(0, 256)
 ```
 
-Made with data mining of GitHub.com ([raw data](https://gist.github.com/4524946), [script](https://github.com/paulmillr/top-github-users)) by [@paulmillr](https://github.com/paulmillr) with contribs of [@lifesinger](https://github.com/lifesinger). Updated once per week.
+Estas estadísticas fueron generadas por un fork de un [script](https://github.com/paulmillr/top-github-users)) por [@paulmillr](https://github.com/paulmillr) con contribuciones de [@lifesinger](https://github.com/lifesinger). 
 
 <table cellspacing="0"><thead>
 <th scope="col">#</th>

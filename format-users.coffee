@@ -39,12 +39,11 @@ stats2markdown = (datafile, mdfile, title) ->
   from.setYear today.getFullYear() - 1
 
   out = """
-  # Most active GitHub users ([git.io/top](http://git.io/top))
+  # Usuarios más activos con ubicación en Guatemala
 
-  The count of contributions (summary of Pull Requests, opened issues and commits) to public repos at GitHub.com from **#{from.toGMTString()}** till **#{today.toGMTString()}**.
+    El número de contribuciones (pull requests, issues abiertos y commits) a repositorios públicos en Github.com desde el **#{from.toGMTString()}** al **#{today.toGMTString()}**.
 
-  Only first 1000 GitHub users according to the count of followers are taken.
-  This is because of limitations of GitHub search. Sorting algo in pseudocode:
+  Ordenamient en pseudo-código:
 
   ```coffeescript
   githubUsers
@@ -53,7 +52,7 @@ stats2markdown = (datafile, mdfile, title) ->
     .slice(0, #{maxNumber})
   ```
 
-  Made with data mining of GitHub.com ([raw data](https://gist.github.com/4524946), [script](https://github.com/paulmillr/top-github-users)) by [@paulmillr](https://github.com/paulmillr) with contribs of [@lifesinger](https://github.com/lifesinger). Updated once per week.
+  Estas estadísticas fueron generadas por un fork de un [script](https://github.com/paulmillr/top-github-users)) por [@paulmillr](https://github.com/paulmillr) con contribuciones de [@lifesinger](https://github.com/lifesinger). 
 
   <table cellspacing="0"><thead>
   <th scope="col">#</th>
