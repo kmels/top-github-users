@@ -1,7 +1,7 @@
 1:
-	mv temp-logins.json old-logins.json
+	#mv temp-logins.json old-logins.json
 	coffee get-users.coffee
-	coffee check-logins.coffee
+	#coffee check-logins.coffee
 
 2:
 	coffee get-details.coffee
