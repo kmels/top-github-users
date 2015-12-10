@@ -45,9 +45,9 @@ stats2markdown = (datafile, mdfile, title) ->
 
   Ordenamient en pseudo-código:
 
-  ```coffeescript
+  ```javascript
   githubUsers
-    .filter((user) -> user.followers > #{minFollowers})
+    .filter(user => user.followers > #{minFollowers})
     .sortBy('contributions')
     .slice(0, #{maxNumber})
   ```
@@ -64,7 +64,8 @@ stats2markdown = (datafile, mdfile, title) ->
   </thead><tbody>\n
   """
 
-  rows = stats.slice(0, maxNumber).map (stat, index) ->
+  rows = stats
+  .filter((stat) -> stat.contributions < 20000).slice(0, maxNumber).map (stat, index) ->
     """
     <tr>
       <th scope="row">##{index + 1}</th>
