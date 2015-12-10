@@ -12,7 +12,11 @@ var batchGet = exports.batchGet = function(urls, progressback, callback) {
         .set('User-Agent', 'curl/7.24.0 (x86_64-apple-darwin12.0) libcurl/7.24.0 OpenSSL/0.9.8r zlib/1.2.5')
         .end(function(error, response) {
           console.log(url);
-          if (error) throw new Error(error);
+          if (error) {
+              console.log(error)
+              console.log(error)
+              //throw new Error(error);
+          }
           if (response.error) {
             if (response.status === 404) {
               done();
