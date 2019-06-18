@@ -25,7 +25,7 @@ getStats = (html, url) ->
     language: (/\sin ([\w-+#\s\(\)]+)/.exec(pageDesc)?[1] ? '')
     gravatar: byProp('image').attr('href')
     followers: getFollowers(login)
-    organizations: $('#site-container > div > div > div.column.one-fourth.vcard > div.clearfix > a').toArray().map(getOrgName)
+    organizations: $("[itemprop='worksFor'] > span").text().trim()
     contributions: getInt $('#contributions-calendar > div:nth-child(3) > span.contrib-number').text()
     contributionsStreak: getInt $('#contributions-calendar > div:nth-child(4) > span.contrib-number').text()
     contributionsCurrentStreak: getInt $('#contributions-calendar > div:nth-child(5) > span.contrib-number').text()
