@@ -9,24 +9,24 @@ getStats = (html, url) ->
   byProp = (field) -> $("[itemprop='#{field}']")
   getInt = (text) -> parseInt text.replace ',', ''
   getOrgName = (item) -> $(item).attr('aria-label')
-  getFollowers = ->
-    text = $('.vcard-stats > a:nth-child(1) > .vcard-stat-count').text().trim()
+  getFollowers = (login) ->
+    selector = "a[href='/#{login}?tab=followers'] > span"
+    text = $(selector).text().trim()
     multiplier = if text.indexOf('k') > 0 then 1000 else 1
     (parseFloat text) * multiplier
 
   pageDesc = $('meta[name="description"]').attr('content')
+  login = byProp('additionalName').text().trim()
 
   userStats =
     name: byProp('name').text().trim()
-    login: byProp('additionalName').text().trim()
+    login: login
     location: byProp('homeLocation').text().trim()
     language: (/\sin ([\w-+#\s\(\)]+)/.exec(pageDesc)?[1] ? '')
     gravatar: byProp('image').attr('href')
-    followers: getFollowers()
-    organizations: $('#site-container > div > div > div.column.one-fourth.vcard > div.clearfix > a').toArray().map(getOrgName)
-    contributions: getInt $('#contributions-calendar > div:nth-child(3) > span.contrib-number').text()
-    contributionsStreak: getInt $('#contributions-calendar > div:nth-child(4) > span.contrib-number').text()
-    contributionsCurrentStreak: getInt $('#contributions-calendar > div:nth-child(5) > span.contrib-number').text()
+    followers: getFollowers(login)
+    organizations: $("[itemprop='worksFor'] > span").text().trim()
+    contributions: getInt $('.js-yearly-contributions > div > h2').text()
 
   stats[userStats.login] = userStats
   userStats
