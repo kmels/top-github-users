@@ -56,14 +56,16 @@ stats2markdown = (datafile, mdfile, title) ->
 
   <table cellspacing="0"><thead>
   <th scope="col">#</th>
-  <th scope="col">User</th>
-  <th scope="col">Contribs</th>
-  <th scope="col">Repositories</th>
-  <th scope="col">Stars</th>
-  <th scope="col">Followers</th>
-  <th scope="col">Following</th>
-  <th scope="col">Language</th>
-  <th scope="col">Location</th>
+  <th scope="col">Usuario</th>
+  <th scope="col">Contribuciones</th>
+  <th scope="col">Mediana diaria</th>
+  <th scope="col">Repositorios</th>
+  <th scope="col">Proyectos</th>
+  <th scope="col">Estrellas</th>
+  <th scope="col">Seguidores</th>
+  <th scope="col">Siguiendo</th>
+  <th scope="col">Lenguajes</th>
+  <th scope="col">Localidad</th>
   <th scope="col" width="30"></th>
   </thead><tbody>\n
   """
@@ -75,7 +77,9 @@ stats2markdown = (datafile, mdfile, title) ->
       <th scope="row">##{index + 1}</th>
       <td><a href="https://github.com/#{stat.login}">#{stat.login}</a>#{if stat.name then ' (' + stat.name + ')' else ''}</td>
       <td>#{stat.contributions}</td>
+      <td>#{stat.dayMedian}</td>
       <td>#{stat.repositories}</td>
+      <td>#{stat.projects}</td>
       <td>#{stat.stars}</td>
       <td>#{stat.followers}</td>
       <td>#{stat.following}</td>

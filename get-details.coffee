@@ -4,6 +4,14 @@ utils = require './utils'
 
 stats = {}
 
+median = (xs) ->
+    return null if (xs.length == 0)
+    sorted = xs.filter((x) -> x > 0).slice().sort((a,b) -> a-b)
+    if (sorted.length % 2 == 1)
+        sorted[(sorted.length-1)/2]
+    else
+        (sorted[(sorted.length/2)-1]+sorted[(sorted.length/2)])/2
+
 getStats = (html, url) ->
   $ = cheerio.load html
   byProp = (field) -> $("[itemprop='#{field}']")
@@ -23,7 +31,8 @@ getStats = (html, url) ->
     badgeCount("a[href='/#{login}?tab=stars'] > span")
   getFollowing = (login) ->
     badgeCount("a[href='/#{login}?tab=following'] > span")
-
+  getProjects = (login) ->
+    badgeCount("a[href='/#{login}?tab=projects'] > span")
   pageDesc = $('meta[name="description"]').attr('content')
   login = byProp('additionalName').text().trim()
 
@@ -37,9 +46,11 @@ getStats = (html, url) ->
     repositories: getRepositories(login)
     stars: getStars(login)
     following: getFollowing(login)
+    projects: getProjects(login)
     organizations: $("[itemprop='worksFor'] > span").text().trim()
     contributions: getInt $('.js-yearly-contributions > div > h2').text()
-
+    dayMedian: median($("rect.day").map((i,day) ->
+        getInt day['attribs']['data-count']))
   stats[userStats.login] = userStats
   userStats
 
