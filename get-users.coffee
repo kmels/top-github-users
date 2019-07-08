@@ -13,7 +13,7 @@ BANNED = [
 ]
 
 saveTopLogins = ->
-  MIN_FOLLOWERS = 2
+  MIN_FOLLOWERS = 5
   MAX_PAGES = 10
   urls = utils.range(1, MAX_PAGES + 1).map (page) -> [
       "https://api.github.com/search/users?q=location:Guatemala+sort:followers&per_page=100"

@@ -9,11 +9,20 @@ getStats = (html, url) ->
   byProp = (field) -> $("[itemprop='#{field}']")
   getInt = (text) -> parseInt text.replace ',', ''
   getOrgName = (item) -> $(item).attr('aria-label')
-  getFollowers = (login) ->
-    selector = "a[href='/#{login}?tab=followers'] > span"
+
+  badgeCount = (selector) ->
     text = $(selector).text().trim()
     multiplier = if text.indexOf('k') > 0 then 1000 else 1
     (parseFloat text) * multiplier
+
+  getFollowers = (login) ->
+    badgeCount("a[href='/#{login}?tab=followers'] > span")
+  getRepositories = (login) ->
+    badgeCount("a[href='/#{login}?tab=repositories'] > span")
+  getStars = (login) ->
+    badgeCount("a[href='/#{login}?tab=stars'] > span")
+  getFollowing = (login) ->
+    badgeCount("a[href='/#{login}?tab=following'] > span")
 
   pageDesc = $('meta[name="description"]').attr('content')
   login = byProp('additionalName').text().trim()
@@ -25,6 +34,9 @@ getStats = (html, url) ->
     language: (/\sin ([\w-+#\s\(\)]+)/.exec(pageDesc)?[1] ? '')
     gravatar: byProp('image').attr('href')
     followers: getFollowers(login)
+    repositories: getRepositories(login)
+    stars: getStars(login)
+    following: getFollowing(login)
     organizations: $("[itemprop='worksFor'] > span").text().trim()
     contributions: getInt $('.js-yearly-contributions > div > h2').text()
 
