@@ -1,7 +1,7 @@
 #!/usr/bin/env coffee
 cheerio = require 'cheerio'
 utils = require './utils'
-
+request = require 'sync-request'
 stats = {}
 
 median = (xs) ->
@@ -12,6 +12,18 @@ median = (xs) ->
     else
         (sorted[(sorted.length/2)-1]+sorted[(sorted.length/2)])/2
 
+getTotalContributions = (login) ->
+  url = "https://github-contributions-api.now.sh/v1/#{login}"
+  sum = -1
+  try
+    res = request('GET', url);  
+    years = JSON.parse(res.getBody())['years'].map( (y) -> y['total'])
+    sum = years.reduce( (a,b) -> a + b)
+    console.log(sum + " #{login}")
+    sum
+  catch e then console.log("Err: "+e)
+  finally 
+    sum
 getStats = (html, url) ->
   $ = cheerio.load html
   byProp = (field) -> $("[itemprop='#{field}']")
@@ -35,7 +47,7 @@ getStats = (html, url) ->
     badgeCount("a[href='/#{login}?tab=projects'] > span")
   pageDesc = $('meta[name="description"]').attr('content')
   login = byProp('additionalName').text().trim()
-
+  
   userStats =
     name: byProp('name').text().trim()
     login: login
@@ -48,7 +60,7 @@ getStats = (html, url) ->
     following: getFollowing(login)
     projects: getProjects(login)
     organizations: $("[itemprop='worksFor'] > span").text().trim()
-    contributions: getInt $('.js-yearly-contributions > div > h2').text()
+    contributions: getTotalContributions(login)
     dayMedian: median($("rect.day").map((i,day) ->
         getInt day['attribs']['data-count']))
   stats[userStats.login] = userStats
